@@ -1,15 +1,19 @@
 var socket = io();
+//var moment = require('/moment.js');
+
+//console.log(timestampMoment.local().format('LT'));
 
 socket.on('connect', function(){
 	console.log('connected to socket.io server');
 });
 
 socket.on('message',function(message){
+	var timestampMoment = moment().utc(message.timestamp);
 
 	console.log('New message:');
 	console.log(message.text);
 
-	jQuery('.messages').append('<p>' + message.text + '</p>');
+	jQuery('.messages').append('<p><strong>' + timestampMoment.local().format('LT') + ': </strong>' + message.text + '</p>');
 
 });
 
